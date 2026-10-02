@@ -1,0 +1,15 @@
+{
+  "Weather": {
+    "title": "HK Weather",
+    "humidity": "Humidity",
+    "precipitation": "Rainfall",
+    "wind": "Wind",
+    "forecast": "9-Day Forecast",
+    "rainfall_forecast": "2-Hour Rainfall",
+    "no_warnings": "No active warnings"
+  },
+  "Settings": {
+    "language": "Language",
+    "theme": "Theme"
+  }
+}
