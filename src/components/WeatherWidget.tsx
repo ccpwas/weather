@@ -6,7 +6,7 @@ import { getLocalWeather, getWeatherWarnings, getNineDayForecast, getLocalForeca
 import { useTranslations } from "next-intl";
 import { AlertTriangle, Cloud, CloudRain, Sun, Loader2, Calendar, Droplets } from "lucide-react";
 import clsx from "clsx";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface WeatherWidgetProps {
   locale: HKOLang;
@@ -104,30 +104,29 @@ export default function WeatherWidget({ locale }: WeatherWidgetProps) {
           {coords && <span className="w-2 h-2 rounded-full bg-green-500 inline-block" title="Using exact location"></span>}
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mt-6 text-sm text-gray-500 dark:text-gray-400 font-medium w-full max-w-[240px]">
+        <div className="grid grid-cols-2 gap-4 mt-6 text-sm text-gray-500 dark:text-gray-400 font-medium w-full max-w-xs">
           <div className="flex flex-col items-center glass-darker p-3 rounded-2xl">
              <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70">{t('humidity')}</span>
              <span className="text-black dark:text-white">{humidityPlace?.value ?? '--'}%</span>
           </div>
           <div className="flex flex-col items-center glass-darker p-3 rounded-2xl">
-             <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70">Rainfall %</span>
+             <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70">{t('rainfall_prob')}</span>
              <span className="text-black dark:text-white">{forecast?.weatherForecast[0]?.PSR ?? '--'}</span>
           </div>
-          <div className="flex flex-col items-center glass-darker p-3 rounded-2xl">
-             <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70">Wind</span>
-             <span className="text-black dark:text-white text-center text-xs line-clamp-1">{forecast?.weatherForecast[0]?.forecastWind?.split(',')[0] ?? '--'}</span>
+          <div className="flex flex-col items-center glass-darker p-3 rounded-2xl col-span-2">
+             <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70">{t('wind')}</span>
+             <span className="text-black dark:text-white text-center text-xs">{forecast?.weatherForecast[0]?.forecastWind ?? '--'}</span>
           </div>
           <div className="flex flex-col items-center glass-darker p-3 rounded-2xl">
-             <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70">Rain (mm)</span>
+             <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70">{t('rain_mm')}</span>
              <span className="text-black dark:text-white">{weather?.rainfall?.data?.find(d => d.place.includes(tempPlace?.place || ""))?.max ?? weather?.rainfall?.data?.[0]?.max ?? 0}</span>
           </div>
-        </div>
-
-        <div className="mt-4 w-full px-4 py-3 rounded-2xl glass-darker text-sm text-center flex flex-col items-center justify-center">
-            <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70 text-gray-500 dark:text-gray-400 font-medium">Warnings</span>
-            <span className={clsx("font-medium", weather?.warningMessage ? "text-red-500" : "text-black dark:text-white")}>
-               {Array.isArray(weather?.warningMessage) ? weather.warningMessage.join(', ') : weather?.warningMessage || "-"}
-            </span>
+          <div className="flex flex-col items-center glass-darker p-3 rounded-2xl justify-center text-center">
+              <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70">{t('warnings')}</span>
+              <span className={clsx("text-xs font-medium", weather?.warningMessage ? "text-red-500" : "text-black dark:text-white")}>
+                 {Array.isArray(weather?.warningMessage) ? weather.warningMessage.join(', ') : weather?.warningMessage || "-"}
+              </span>
+          </div>
         </div>
 
         {/* 2-Hour Rainfall / Local Forecast block */}
@@ -151,24 +150,32 @@ export default function WeatherWidget({ locale }: WeatherWidgetProps) {
       </div>
 
       {/* 9-Day Forecast Modal / Expandable Area */}
-      {showForecast && forecast && (
-        <div className="glass p-6 rounded-3xl space-y-4 animate-in slide-in-from-top-4 fade-in">
-           <h3 className="font-semibold text-lg">{t('forecast')}</h3>
-           <div className="space-y-3">
-              {forecast.weatherForecast.map((day, idx) => (
-                 <div key={idx} className="flex items-center justify-between text-sm border-b border-black/5 dark:border-white/5 pb-2 last:border-0 last:pb-0">
-                    <div className="w-20 font-medium shrink-0">{day.week.substring(0,3)}</div>
-                    <div className="flex-1 text-center text-xs opacity-70 px-2">{day.forecastWeather}</div>
-                    <div className="w-24 text-right tabular-nums shrink-0">
-                       <span className="opacity-60">{day.forecastMintemp.value}°</span>
-                       <span className="mx-1">-</span>
-                       <span className="font-medium">{day.forecastMaxtemp.value}°</span>
-                    </div>
-                 </div>
-              ))}
-           </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {showForecast && forecast && (
+          <motion.div
+            initial={{ opacity: 0, height: 0, overflow: "hidden" }}
+            animate={{ opacity: 1, height: "auto", overflow: "visible" }}
+            exit={{ opacity: 0, height: 0, overflow: "hidden" }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="glass p-6 rounded-3xl space-y-4 origin-top"
+          >
+             <h3 className="font-semibold text-lg">{t('forecast')}</h3>
+             <div className="space-y-3">
+                {forecast.weatherForecast.map((day, idx) => (
+                   <div key={idx} className="flex items-center justify-between text-sm border-b border-black/5 dark:border-white/5 pb-2 last:border-0 last:pb-0">
+                      <div className="w-20 font-medium shrink-0">{day.week.substring(0,3)}</div>
+                      <div className="flex-1 text-center text-xs opacity-70 px-2">{day.forecastWeather}</div>
+                      <div className="w-24 text-right tabular-nums shrink-0">
+                         <span className="opacity-60">{day.forecastMintemp.value}°</span>
+                         <span className="mx-1">-</span>
+                         <span className="font-medium">{day.forecastMaxtemp.value}°</span>
+                      </div>
+                   </div>
+                ))}
+             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
