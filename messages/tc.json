@@ -3,10 +3,13 @@
     "title": "香港天氣",
     "humidity": "濕度",
     "precipitation": "降雨量",
-    "wind": "風速",
+    "wind": "風向及風速",
     "forecast": "九天天氣預報",
     "rainfall_forecast": "兩小時降雨預報",
-    "no_warnings": "現時沒有警告"
+    "no_warnings": "現時沒有警告",
+    "rainfall_prob": "降雨概率",
+    "rain_mm": "降雨量(毫米)",
+    "warnings": "警告"
   },
   "Settings": {
     "language": "語言",

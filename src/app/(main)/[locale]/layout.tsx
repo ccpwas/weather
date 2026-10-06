@@ -44,9 +44,17 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <link rel="apple-touch-icon" href="/weather/apple-icon.png" />
+      </head>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages} locale={locale}>
-          {children}
+          <div className="min-h-[100dvh] flex flex-col relative pb-12">
+            {children}
+            <footer className="absolute bottom-4 left-0 right-0 text-center text-[10px] text-gray-400 dark:text-gray-500 font-mono tracking-widest uppercase pointer-events-none">
+              built by cc, @ccpwas, 2026
+            </footer>
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>
