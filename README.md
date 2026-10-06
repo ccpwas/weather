@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## HK Weather by CC
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`]. Built with the help from Google Jules.
 
 ## Getting Started
 
-First, run the development server:
+I'm a graphic designer that yearns for the minimalistic style, and personally I feel that while the Official Hong Kong Observatory app do offers a lot, I always felt like I did not know where should I go when I'm in the app since the UI looks so outdated, dense and complicated.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+And so, I've built this app with the idea of a more minimal, straightforward and streamlined experience. Comparing to the Official Hong Kong Observatory App, we obviously do not have that many stuff loaded within the app, but on the contrary, we do offer a webapp that's more lightweight, straightforward, efficient, easy to use, and all the basic information that you will need to know, all in one glance. Also in a way for me to avoid the Apple Developers Fee because now I do not need to put this up onto the App Store HAHA. Suck on it Apple.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Using the official Open Data API from the Hong Kong Observatory, we assure that the data is the most up-to-date with the official data that you can also get in the HKO app. But this is just more lightweight, zero installation, more straightforward, and more minimal.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+-
 
-## Learn More
+## Installation
 
-To learn more about Next.js, take a look at the following resources:
+iOS
+- Head to the website using Safari, then, depending on which version you are on, using iOS 27 as an example, press the three-bar icon beside the address bar, click Share, press View More with the arrow on the pop up menu, then press Add to Home Screen. Remember to toggle on "Open as WebApp".
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Android
+- Ahh, I don't know. I haven't been using Android for such a long time. But I'm sure that you can find your own ways! I will try to see if I can push a flush-out App version onto Google Play in the coming future.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Upcoming features
+- One tap to add a iOS Shortcut that fetches weather data when your alarm rings at your desired time.
 
-## Deploy on Vercel
+-
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Disclaimer
+This WebApp does not fetch any of your personal data, the app only need your CURRENT location data while running the webapp. You may choose to Allow Once or Allow While Using on iOS. For Android, I don't know. But for sure I DO NOT COLLECT YOUR DATA.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
