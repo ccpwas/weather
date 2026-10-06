@@ -5,6 +5,12 @@ import type { NextConfig } from "next";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
+  output: 'export',
+  basePath: '/weather',
+  webpack: (config) => {
+    return config;
+  },
+  turbopack: {}
 };
 
 export default withPWA({

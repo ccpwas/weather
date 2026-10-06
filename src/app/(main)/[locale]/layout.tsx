@@ -1,10 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../../globals.css";
 import { NextIntlClientProvider } from 'next-intl';
-import { getLocale, getMessages } from 'next-intl/server';
 
 const inter = Inter({ subsets: ["latin"] });
+
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'tc' }, { locale: 'sc' }];
+}
 
 export const viewport: Viewport = {
   themeColor: "#ffffff",
@@ -21,18 +24,28 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
-  const locale = await getLocale();
-  const messages = await getMessages();
+  const resolvedParams = await params;
+  const locale = resolvedParams.locale;
+
+  // Dynamically import messages based on locale for static generation
+  let messages;
+  try {
+    messages = (await import(`../../../../messages/${locale}.json`)).default;
+  } catch (error) {
+    messages = (await import(`../../../../messages/en.json`)).default; // Fallback
+  }
 
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider messages={messages} locale={locale}>
           {children}
         </NextIntlClientProvider>
       </body>

@@ -15,9 +15,7 @@ export default function ShortcutTutorial({ locale }: ShortcutTutorialProps) {
   const [apiUrl, setApiUrl] = useState("");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setApiUrl(`${window.location.origin}/api/shortcut?lang=${locale}`);
-    }
+    setApiUrl(`https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=${locale}`);
   }, [locale]);
 
   const handleCopy = () => {
@@ -37,7 +35,7 @@ export default function ShortcutTutorial({ locale }: ShortcutTutorialProps) {
     step2Title: isEn ? "2. Create the Shortcut" : isTc ? "2. 建立捷徑" : "2. 创建快捷指令",
     step2Desc: isEn ? "Open the Shortcuts app on your iPhone. Create a new shortcut with these actions:" : isTc ? "打開 iPhone 上的「捷徑」App。使用以下動作建立新捷徑：" : "打开 iPhone 上的“快捷指令”App。使用以下操作创建新快捷指令：",
     action1: isEn ? '"Get Contents of URL" (paste the link)' : isTc ? "「取得 URL 的內容」（貼上連結）" : "“获取 URL 内容”（粘贴链接）",
-    action2: isEn ? '"Get Dictionary Value" (Key: text)' : isTc ? "「取得字典值」（鍵值：text）" : "“获取字典值”（键：text）",
+    action2: isEn ? '"Get Dictionary Value" (Key: temperature.data.1.value)' : isTc ? "「取得字典值」（鍵值：temperature.data.1.value）" : "“获取字典值”（键：temperature.data.1.value）",
     action3: isEn ? '"Show Result" or "Speak Text"' : isTc ? "「顯示結果」或「朗讀文字」" : "“显示结果”或“朗读文本”",
     step3Title: isEn ? "3. Set up Daily Automation" : isTc ? "3. 設定每日自動化" : "3. 设置每日自动化",
     step3Desc: isEn ? "In Shortcuts, go to Automation > New Automation. Choose 'Time of Day' (e.g., 6:00 AM). Select 'Run Immediately'. Then choose the shortcut you just created. You can edit this time later in the Automation tab." : isTc ? "在捷徑中，前往「自動化」>「新增自動化」。選擇「特定時間」（例如上午 6:00）。選擇「立即執行」。然後選擇您剛剛建立的捷徑。您稍後可以在自動化標籤頁中修改時間。" : "在快捷指令中，前往“自动化”>“新建自动化”。选择“特定时间”（例如上午 6:00）。选择“立即运行”。然后选择您刚刚创建的快捷指令。您稍后可以在自动化标签页中修改时间。",
