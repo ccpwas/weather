@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Command, X, Copy, Check, Info } from "lucide-react";
 import clsx from "clsx";
 import { HKOLang } from "@/lib/hko-api";
+import { motion } from "framer-motion";
 
 interface ShortcutTutorialProps {
   locale: HKOLang;
@@ -44,13 +45,15 @@ export default function ShortcutTutorial({ locale }: ShortcutTutorialProps) {
 
   return (
     <>
-      <button
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}
         className="p-2 rounded-full transition-colors glass flex items-center justify-center text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white"
         aria-label="Shortcut Tutorial"
       >
         <Command size={18} />
-      </button>
+      </motion.button>
 
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/20 backdrop-blur-sm">
@@ -59,17 +62,22 @@ export default function ShortcutTutorial({ locale }: ShortcutTutorialProps) {
               <h2 className="text-xl font-semibold flex items-center gap-2">
                 <Command size={24} /> {t.title}
               </h2>
-              <button onClick={() => setIsOpen(false)} className="p-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setIsOpen(false)}
+                className="p-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10"
+              >
                 <X size={20} />
-              </button>
+              </motion.button>
             </div>
 
             <p className="text-sm opacity-80 mb-6">{t.desc}</p>
 
-            <div className="space-y-6 text-sm">
-              <div>
+            <div className="space-y-4 text-sm">
+              <div className="bg-black/5 dark:bg-white/5 p-4 rounded-2xl">
                 <h3 className="font-semibold mb-2">{t.step1Title}</h3>
-                <p className="opacity-80 mb-2">{t.step1Desc}</p>
+                <p className="opacity-80 mb-3">{t.step1Desc}</p>
                 <div className="flex gap-2 items-center">
                   <input
                     type="text"
@@ -77,16 +85,18 @@ export default function ShortcutTutorial({ locale }: ShortcutTutorialProps) {
                     value={apiUrl}
                     className="flex-1 bg-black/5 dark:bg-white/10 p-2 rounded-lg text-xs font-mono outline-none"
                   />
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={handleCopy}
                     className="p-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors"
                   >
                     {copied ? <Check size={16} /> : <Copy size={16} />}
-                  </button>
+                  </motion.button>
                 </div>
               </div>
 
-              <div>
+              <div className="bg-black/5 dark:bg-white/5 p-4 rounded-2xl">
                 <h3 className="font-semibold mb-2">{t.step2Title}</h3>
                 <p className="opacity-80 mb-2">{t.step2Desc}</p>
                 <ul className="list-disc pl-5 opacity-80 space-y-1">
@@ -96,22 +106,24 @@ export default function ShortcutTutorial({ locale }: ShortcutTutorialProps) {
                 </ul>
               </div>
 
-              <div>
+              <div className="bg-black/5 dark:bg-white/5 p-4 rounded-2xl">
                 <h3 className="font-semibold mb-2 flex items-center gap-2">
                    {t.step3Title}
                 </h3>
-                <p className="opacity-80 bg-blue-50 dark:bg-blue-900/30 p-3 rounded-lg border border-blue-100 dark:border-blue-800">
+                <p className="opacity-80 bg-blue-50/50 dark:bg-blue-900/30 p-3 rounded-lg border border-blue-100/50 dark:border-blue-800">
                   {t.step3Desc}
                 </p>
               </div>
             </div>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => setIsOpen(false)}
               className="mt-8 w-full py-3 rounded-xl bg-black dark:bg-white text-white dark:text-black font-medium"
             >
               {t.close}
-            </button>
+            </motion.button>
           </div>
         </div>
       )}

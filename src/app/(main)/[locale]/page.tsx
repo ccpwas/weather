@@ -10,7 +10,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <main className="min-h-screen p-6 md:p-12 flex flex-col items-center justify-center relative bg-gradient-to-br from-blue-50/50 to-purple-50/50 dark:from-blue-950/20 dark:to-purple-950/20">
-      <div className="absolute top-6 right-6 flex items-center space-x-3 z-50">
+      <div className="w-full max-w-sm flex justify-end items-center space-x-3 z-50 mb-6">
          <ShortcutTutorial locale={locale} />
          <ThemeToggle />
          <LanguageToggle />

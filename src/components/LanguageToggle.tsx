@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 type Locale = "en" | "tc" | "sc";
 
@@ -29,7 +30,9 @@ export default function LanguageToggle() {
 
   return (
     <div className="flex bg-black/5 dark:bg-white/10 rounded-full p-1 w-fit glass">
-      <button
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={() => handleLanguageChange("en")}
         className={clsx(
           "px-3 py-1 rounded-full text-sm font-medium transition-colors",
@@ -37,8 +40,10 @@ export default function LanguageToggle() {
         )}
       >
         EN
-      </button>
-      <button
+      </motion.button>
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={() => handleLanguageChange("tc")}
         className={clsx(
           "px-3 py-1 rounded-full text-sm font-medium transition-colors",
@@ -46,8 +51,10 @@ export default function LanguageToggle() {
         )}
       >
         繁
-      </button>
-      <button
+      </motion.button>
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={() => handleLanguageChange("sc")}
         className={clsx(
           "px-3 py-1 rounded-full text-sm font-medium transition-colors",
@@ -55,7 +62,7 @@ export default function LanguageToggle() {
         )}
       >
         简
-      </button>
+      </motion.button>
     </div>
   );
 }

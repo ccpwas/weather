@@ -6,6 +6,7 @@ import { getLocalWeather, getWeatherWarnings, getNineDayForecast, getLocalForeca
 import { useTranslations } from "next-intl";
 import { AlertTriangle, Cloud, CloudRain, Sun, Loader2, Calendar, Droplets } from "lucide-react";
 import clsx from "clsx";
+import { motion } from "framer-motion";
 
 interface WeatherWidgetProps {
   locale: HKOLang;
@@ -98,16 +99,35 @@ export default function WeatherWidget({ locale }: WeatherWidgetProps) {
         <div className="text-6xl font-light tracking-tighter mb-2">
           {tempPlace?.value ?? '--'}°
         </div>
-        <div className="text-lg font-medium text-gray-600 dark:text-gray-300 flex items-center gap-2">
+        <div className="text-lg font-medium text-black dark:text-white flex items-center gap-2">
           {tempPlace?.place ?? t('title')}
           {coords && <span className="w-2 h-2 rounded-full bg-green-500 inline-block" title="Using exact location"></span>}
         </div>
 
-        <div className="flex space-x-6 mt-6 text-sm text-gray-500 dark:text-gray-400 font-medium w-full justify-center">
-          <div className="flex flex-col items-center">
-             <span className="mb-1 uppercase text-xs tracking-wider opacity-70">{t('humidity')}</span>
-             <span>{humidityPlace?.value ?? '--'}%</span>
+        <div className="grid grid-cols-2 gap-4 mt-6 text-sm text-gray-500 dark:text-gray-400 font-medium w-full max-w-[240px]">
+          <div className="flex flex-col items-center glass-darker p-3 rounded-2xl">
+             <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70">{t('humidity')}</span>
+             <span className="text-black dark:text-white">{humidityPlace?.value ?? '--'}%</span>
           </div>
+          <div className="flex flex-col items-center glass-darker p-3 rounded-2xl">
+             <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70">Rainfall %</span>
+             <span className="text-black dark:text-white">{forecast?.weatherForecast[0]?.PSR ?? '--'}</span>
+          </div>
+          <div className="flex flex-col items-center glass-darker p-3 rounded-2xl">
+             <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70">Wind</span>
+             <span className="text-black dark:text-white text-center text-xs line-clamp-1">{forecast?.weatherForecast[0]?.forecastWind?.split(',')[0] ?? '--'}</span>
+          </div>
+          <div className="flex flex-col items-center glass-darker p-3 rounded-2xl">
+             <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70">Rain (mm)</span>
+             <span className="text-black dark:text-white">{weather?.rainfall?.data?.find(d => d.place.includes(tempPlace?.place || ""))?.max ?? weather?.rainfall?.data?.[0]?.max ?? 0}</span>
+          </div>
+        </div>
+
+        <div className="mt-4 w-full px-4 py-3 rounded-2xl glass-darker text-sm text-center flex flex-col items-center justify-center">
+            <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70 text-gray-500 dark:text-gray-400 font-medium">Warnings</span>
+            <span className={clsx("font-medium", weather?.warningMessage ? "text-red-500" : "text-black dark:text-white")}>
+               {Array.isArray(weather?.warningMessage) ? weather.warningMessage.join(', ') : weather?.warningMessage || "-"}
+            </span>
         </div>
 
         {/* 2-Hour Rainfall / Local Forecast block */}
@@ -120,12 +140,14 @@ export default function WeatherWidget({ locale }: WeatherWidgetProps) {
           </div>
         )}
 
-        <button
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => setShowForecast(!showForecast)}
           className="mt-6 px-4 py-2 rounded-full glass-darker text-sm font-medium hover:bg-black/10 dark:hover:bg-white/10 transition-colors flex items-center gap-2"
         >
           <Calendar size={16} /> {t('forecast')}
-        </button>
+        </motion.button>
       </div>
 
       {/* 9-Day Forecast Modal / Expandable Area */}
@@ -133,11 +155,11 @@ export default function WeatherWidget({ locale }: WeatherWidgetProps) {
         <div className="glass p-6 rounded-3xl space-y-4 animate-in slide-in-from-top-4 fade-in">
            <h3 className="font-semibold text-lg">{t('forecast')}</h3>
            <div className="space-y-3">
-              {forecast.weatherForecast.slice(0, 5).map((day, idx) => (
+              {forecast.weatherForecast.map((day, idx) => (
                  <div key={idx} className="flex items-center justify-between text-sm border-b border-black/5 dark:border-white/5 pb-2 last:border-0 last:pb-0">
-                    <div className="w-20 font-medium">{day.week.substring(0,3)}</div>
-                    <div className="flex-1 text-center text-xs opacity-70 px-2 line-clamp-1">{day.forecastWeather}</div>
-                    <div className="w-24 text-right tabular-nums">
+                    <div className="w-20 font-medium shrink-0">{day.week.substring(0,3)}</div>
+                    <div className="flex-1 text-center text-xs opacity-70 px-2">{day.forecastWeather}</div>
+                    <div className="w-24 text-right tabular-nums shrink-0">
                        <span className="opacity-60">{day.forecastMintemp.value}°</span>
                        <span className="mx-1">-</span>
                        <span className="font-medium">{day.forecastMaxtemp.value}°</span>

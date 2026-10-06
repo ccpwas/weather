@@ -13,6 +13,10 @@ export interface LocalWeather {
   };
   icon: number[];
   updateTime: string;
+  warningMessage?: string | string[];
+  rainfall?: {
+    data: { max: number; unit: string; place: string }[];
+  };
 }
 
 export interface WeatherWarning {
