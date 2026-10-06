@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Moon, Sun, Monitor } from "lucide-react";
 import clsx from "clsx";
+import { motion } from "framer-motion";
 
 type Theme = "light" | "dark" | "system";
 
@@ -39,7 +40,9 @@ export default function ThemeToggle() {
 
   return (
     <div className="flex bg-black/5 dark:bg-white/10 rounded-full p-1 w-fit glass">
-      <button
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={() => handleThemeChange("light")}
         className={clsx(
           "p-2 rounded-full transition-colors",
@@ -48,8 +51,10 @@ export default function ThemeToggle() {
         aria-label="Light mode"
       >
         <Sun size={18} />
-      </button>
-      <button
+      </motion.button>
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={() => handleThemeChange("system")}
         className={clsx(
           "p-2 rounded-full transition-colors",
@@ -58,8 +63,10 @@ export default function ThemeToggle() {
         aria-label="System mode"
       >
         <Monitor size={18} />
-      </button>
-      <button
+      </motion.button>
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={() => handleThemeChange("dark")}
         className={clsx(
           "p-2 rounded-full transition-colors",
@@ -68,7 +75,7 @@ export default function ThemeToggle() {
         aria-label="Dark mode"
       >
         <Moon size={18} />
-      </button>
+      </motion.button>
     </div>
   );
 }
