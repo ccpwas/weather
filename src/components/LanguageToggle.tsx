@@ -22,7 +22,7 @@ export default function LanguageToggle() {
   const handleLanguageChange = (newLocale: Locale) => {
     setLocale(newLocale);
     document.cookie = `NEXT_LOCALE=${newLocale}; path=/; max-age=31536000`;
-    router.refresh();
+    router.push(`/${newLocale}`);
   };
 
   if (!mounted) return null;
