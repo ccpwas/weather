@@ -127,6 +127,10 @@ export default function WeatherWidget({ locale }: WeatherWidgetProps) {
                  {Array.isArray(weather?.warningMessage) ? weather.warningMessage.join(', ') : weather?.warningMessage || "-"}
               </span>
           </div>
+          <div className="flex flex-col items-center glass-darker p-3 rounded-2xl col-span-2">
+             <span className="mb-1 uppercase text-[10px] tracking-wider opacity-70">{t('uv_index')}</span>
+             <span className="text-black dark:text-white">{weather?.uvindex?.data?.[0]?.value ?? '--'}</span>
+          </div>
         </div>
 
         {/* 2-Hour Rainfall / Local Forecast block */}
@@ -162,13 +166,19 @@ export default function WeatherWidget({ locale }: WeatherWidgetProps) {
              <h3 className="font-semibold text-lg">{t('forecast')}</h3>
              <div className="space-y-3">
                 {forecast.weatherForecast.map((day, idx) => (
-                   <div key={idx} className="flex items-center justify-between text-sm border-b border-black/5 dark:border-white/5 pb-2 last:border-0 last:pb-0">
-                      <div className="w-20 font-medium shrink-0">{day.week.substring(0,3)}</div>
-                      <div className="flex-1 text-center text-xs opacity-70 px-2">{day.forecastWeather}</div>
-                      <div className="w-24 text-right tabular-nums shrink-0">
-                         <span className="opacity-60">{day.forecastMintemp.value}°</span>
-                         <span className="mx-1">-</span>
-                         <span className="font-medium">{day.forecastMaxtemp.value}°</span>
+                   <div key={idx} className="flex flex-col text-sm border-b border-black/5 dark:border-white/5 pb-2 last:border-0 last:pb-0 gap-1">
+                      <div className="flex items-center justify-between">
+                        <div className="w-20 font-medium shrink-0">{day.week.substring(0,3)}</div>
+                        <div className="flex-1 text-center text-xs opacity-70 px-2">{day.forecastWeather}</div>
+                        <div className="w-24 text-right tabular-nums shrink-0">
+                           <span className="opacity-60">{day.forecastMintemp.value}°</span>
+                           <span className="mx-1">-</span>
+                           <span className="font-medium">{day.forecastMaxtemp.value}°</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-start gap-1 text-[10px] text-blue-500/80 dark:text-blue-400/80 font-medium">
+                         <Droplets size={10} />
+                         <span>{t('rainfall_prob')}: {day.PSR}</span>
                       </div>
                    </div>
                 ))}
