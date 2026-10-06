@@ -5,7 +5,6 @@ import type { NextConfig } from "next";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ['sqlite3']
 };
 
 export default withPWA({
@@ -13,5 +12,4 @@ export default withPWA({
   disable: process.env.NODE_ENV === 'development',
   register: true,
   skipWaiting: true,
-  swSrc: 'worker/index.js'
 })(withNextIntl(nextConfig));
