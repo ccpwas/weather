@@ -17,6 +17,10 @@ export interface LocalWeather {
   rainfall?: {
     data: { max: number; unit: string; place: string }[];
   };
+  uvindex?: {
+    data: { place: string; value: number; desc: string }[];
+    recordDesc: string;
+  };
 }
 
 export interface WeatherWarning {

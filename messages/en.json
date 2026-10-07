@@ -9,7 +9,8 @@
     "no_warnings": "No active warnings",
     "rainfall_prob": "Rainfall %",
     "rain_mm": "Rain (mm)",
-    "warnings": "Warnings"
+    "warnings": "Warnings",
+    "uv_index": "UV Index"
   },
   "Settings": {
     "language": "Language",

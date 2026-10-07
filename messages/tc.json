@@ -9,7 +9,8 @@
     "no_warnings": "現時沒有警告",
     "rainfall_prob": "降雨概率",
     "rain_mm": "降雨量(毫米)",
-    "warnings": "警告"
+    "warnings": "警告",
+    "uv_index": "紫外線指數"
   },
   "Settings": {
     "language": "語言",

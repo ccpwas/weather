@@ -51,8 +51,10 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages} locale={locale}>
           <div className="min-h-[100dvh] flex flex-col relative pb-12">
             {children}
-            <footer className="absolute bottom-4 left-0 right-0 text-center text-[10px] text-gray-400 dark:text-gray-500 font-mono tracking-widest uppercase pointer-events-none">
-              built by cc, @ccpwas, 2026
+            <footer className="absolute bottom-4 left-0 right-0 text-center text-[10px] text-gray-400 dark:text-gray-500 font-mono tracking-widest uppercase">
+              <span className="pointer-events-none">built by cc, @ccpwas, 2026</span>
+              {" | "}
+              <a href="https://github.com/ccpwas/weather" target="_blank" rel="noopener noreferrer" className="hover:underline">About Us</a>
             </footer>
           </div>
         </NextIntlClientProvider>
