@@ -24,6 +24,16 @@ export default function WeatherWidget({ locale }: WeatherWidgetProps) {
 
   // Default to showing forecast modal or not
   const [showForecast, setShowForecast] = useState(false);
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
+
+  // Update time every second
+  useEffect(() => {
+    setCurrentTime(new Date());
+    const timeInterval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timeInterval);
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -89,6 +99,28 @@ export default function WeatherWidget({ locale }: WeatherWidgetProps) {
 
       {/* Main Temp Widget */}
       <div className="glass p-8 rounded-3xl flex flex-col items-center justify-center relative overflow-hidden">
+
+        {/* Date and Time */}
+        <div className="text-center mb-6">
+           <div className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">
+             {currentTime ? new Intl.DateTimeFormat(locale === 'en' ? 'en-US' : (locale === 'tc' ? 'zh-HK' : 'zh-CN'), {
+                timeZone: 'Asia/Hong_Kong',
+                weekday: 'long',
+                month: 'short',
+                day: 'numeric'
+             }).format(currentTime) : '--'}
+           </div>
+           <div className="text-2xl font-semibold tracking-tight text-black dark:text-white tabular-nums">
+             {currentTime ? new Intl.DateTimeFormat('en-US', {
+                timeZone: 'Asia/Hong_Kong',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+             }).format(currentTime) : '--:--:--'}
+           </div>
+        </div>
+
         {/* Simple Icon Mapping */}
         <div className="mb-4">
            {iconCode >= 60 ? <CloudRain size={64} className="text-blue-500" /> :
